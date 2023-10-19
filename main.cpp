@@ -302,8 +302,9 @@ int main()
         }
         case 8:
         {
-            danhsach.SapXepDiem();
+            (danhsach.SapXepDiem()).xuat();
             system("pause");
+            break;
             break;
         }
         }
