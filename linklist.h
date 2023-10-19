@@ -98,7 +98,7 @@ public:
     void docfile();
     void ghifile();
     void check();
-    void SapXepDiem();
+    LinkedList SapXepDiem();
     float searchnganh(string str);
     bool testempty()
     {
@@ -438,7 +438,7 @@ float LinkedList::searchnganh(string s)
         cout << "Không có tên ngành này" << endl;
         return 0;
     }
-void LinkedList::SapXepDiem(){
+LinkedList LinkedList::SapXepDiem(){
     LinkedList result;
     for (node *temp = this->head; temp!=NULL; temp=temp->next)
     for (node *p=temp->next;p!=NULL;p=p->next)
@@ -452,7 +452,7 @@ void LinkedList::SapXepDiem(){
     }
     for (node *p = this->head; p!=NULL ;p =p->next)
     result.insert(p->data);
-    result.xuat();
+    return result;
 }
 void LinkedList::check(){
     int i=0;
