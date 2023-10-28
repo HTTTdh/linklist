@@ -4,6 +4,7 @@
 #include <fstream>
 #include <iomanip>
 #include "person.h"
+#include <vector>
 using namespace std;
 class ThiSinh : public Person
 {
@@ -12,26 +13,28 @@ private:
     float to, li, ho;
     float sum;
     int spt;
-    string *nv;
+    vector<string> nv;
 
 public:
     ThiSinh();
-    ThiSinh(string cccd, string name, Date date, string address, int gt, string sbd, float to, float li, float ho, int spt, string *nv);
+    ThiSinh(string cccd, string name, Date date, string address, string gt, string sbd, float to, float li, float ho, int spt, string *nv);
     void setsbd(string sbd);
-    string getsbd();
+    string getsbd() const;
     void setto(float to);
     float getto();
     void setli(float li);
-    float getli();
+    float getli() ;
     void sethoa(float hoa);
     float gethoa();
     float getsum();
     void setspt(int spt);
     int getspt();
-    void setnv(string nv, int i);
+    void setnv(const string&, int );
     string getnv(int i);
     void input();
     void display();
+    ~ThiSinh(){
+    }
 };
 
 ThiSinh::ThiSinh() : Person()
@@ -41,9 +44,8 @@ ThiSinh::ThiSinh() : Person()
     li = 0;
     ho = 0;
     spt = 0;
-    this->nv = NULL;
 }
-ThiSinh::ThiSinh(string cccd, string name, Date date, string address, int gt, string sbd, float to, float li, float ho, int spt, string *nv)
+ThiSinh::ThiSinh(string cccd, string name, Date date, string address, string gt, string sbd, float to, float li, float ho, int spt, string *nv)
     : Person(cccd, name, date, address, gt), sbd(sbd), to(to), li(li), ho(ho), spt(spt)
 {
     nv = new string[spt];
@@ -54,7 +56,7 @@ void ThiSinh::setsbd(string sbd)
 {
     this->sbd = sbd;
 }
-string ThiSinh::getsbd()
+string ThiSinh::getsbd() const
 {
     return sbd;
 }
@@ -96,10 +98,12 @@ int ThiSinh::getspt()
     return spt;
 }
 
-void ThiSinh::setnv(string nv, int i)
-{
-    this->nv[i] = nv[i];
-}
+// void ThiSinh::setnv(const string& value, int i)
+// {
+ 
+//     nv[i] = value;
+
+// }
 string ThiSinh::getnv(int i)
 {
     return nv[i];
@@ -123,10 +127,11 @@ void ThiSinh::input()
     cin >> spt;
     for (int i = 0; i < spt; i++)
     {
+        string nvStamp = "";
         fflush(stdin);
-        cout << "Nhập nguyện vọng thứ " << i + 1 << " ";
-        getline(cin, nv[i]);
-        cin.ignore(1);
+        cout << "Nhập nguyện vọng thứ " << i + 1 << " : ";
+        getline(cin,nvStamp);
+        nv.push_back(nvStamp);
     }
     cout << endl;
     for (int i = 0; i < 50; i++)
@@ -149,4 +154,5 @@ void ThiSinh::display()
     cout << setw(5) << getli() << setw(3) << "|";
     cout << setw(6) << gethoa() << setw(3) << "|";
     cout << setw(5) << getsum() << setw(5) << "|" << endl;
+    // cout << nv.pop_back();
 }

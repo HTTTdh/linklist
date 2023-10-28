@@ -13,22 +13,25 @@ protected:
     string name;
     Date date;
     string address;
-    int gt;
+    string gt;
 
 public:
     Person();
-    Person(string cccd, string name, Date date, string address, int gt);
+    Person(string cccd, string name, Date date, string address, string gt);
     void setcccd(string cccd);
-    string getcccd();
+    string getcccd() const;
     void setname(string name);
-    string getname();
+    string getname() const;
     void setdate(Date date);
-    Date getdate();
+    Date getdate() const;
     void setaddress(string address);
-    string getaddress();
-    void setgt(int gt);
-    int getgt();
+    string getaddress() const;
+    void setgt(string gt);
+    string getgt() const;
     void nhapthongtin();
+    ~Person(){
+        
+    }
 };
 
 Person::Person()
@@ -39,14 +42,14 @@ Person::Person()
     date.month = 0;
     date.year = 0;
     address = "";
-    gt = 0;
+    gt = "";
 }
-Person::Person(string cccd, string name, Date date, string address, int gt) : cccd(cccd), name(name), date(date), address(address), gt(gt){};
+Person::Person(string cccd, string name, Date date, string address, string gt) : cccd(cccd), name(name), date(date), address(address), gt(gt){};
 void Person::setcccd(string cccd)
 {
     this->cccd = cccd;
 }
-string Person::getcccd()
+string Person::getcccd() const
 {
     return cccd;
 }
@@ -54,7 +57,7 @@ void Person::setname(string name)
 {
     this->name = name;
 }
-string Person::getname()
+string Person::getname() const
 {
     return name;
 }
@@ -64,7 +67,7 @@ void Person::setdate(Date date)
     this->date.month = date.month;
     this->date.year = date.year;
 }
-Date Person::getdate()
+Date Person::getdate()const 
 {
     return date;
 }
@@ -72,15 +75,15 @@ void Person::setaddress(string address)
 {
     this->address = address;
 }
-string Person::getaddress()
+string Person::getaddress()const
 {
     return address;
 }
-void Person::setgt(int gt)
+void Person::setgt(string gt)
 {
     this->gt = gt;
 }
-int Person::getgt()
+string Person::getgt()const
 {
     return gt;
 }
@@ -100,6 +103,6 @@ void Person::nhapthongtin()
     cin.ignore(1);
     cout << "Nhập địa chỉ (chỉ nhập tỉnh): ";
     getline(cin, address);
-    cout << "Nhập giới tính (0: Nam, 1: Nữ): ";
+    cout << "Nhập giới tính (Nam/Nu): ";
     cin >> gt;
 }
