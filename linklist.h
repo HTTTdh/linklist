@@ -1,74 +1,168 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <sstream>
 #include <iomanip>
-#include "node.h"
-#include "Nganh.h"
+#include "person.h"
+#include "Thisinh.h"
+#include "mylib.h"
 using namespace std;
+
+class node
+{
+public:
+    ThiSinh data;
+    node *next;
+    node(ThiSinh ts)
+    {
+        data = ts;
+        next = NULL;
+    }
+};
 
 void Form()
 {
     cout << "+";
-    for (int i = 0; i < 153; i++)
+    for (int i = 0; i < 180; i++)
         cout << "-";
     cout << "+" << endl;
-    cout << "|" << setw(15) << "Tên" << setw(20) << "|";
+    cout << "|" << setw(14) << "Ten" << setw(20) << "|";
     cout << setw(10) << "CCCD" << setw(10) << "|";
     cout << setw(5) << "GT" << setw(3) << "|";
-    cout << setw(15) << "Ngày Sinh" << setw(5) << "|";
-    cout << setw(17) << "Địa Chỉ" << setw(8) << "|";
+    cout << setw(14) << "Ngay Sinh" << setw(5) << "|";
+    cout << setw(12) << "Dia Chi" << setw(8) << "|";
     cout << setw(8) << "SBD" << setw(8) << "|";
-    cout << setw(8) << "Toán" << setw(3) << "|";
-    cout << setw(6) << "Lý" << setw(3) << "|";
-    cout << setw(7) << "Hóa" << setw(3) << "|";
-    cout << setw(9) << "Tổng" << setw(3) << "|" << endl;
+    cout << setw(7) << "Toan" << setw(3) << "|";
+    cout << setw(5) << "Ly" << setw(3) << "|";
+    cout << setw(6) << "Hoa" << setw(3) << "|";
+    cout << setw(6) << "Van" << setw(3) << "|";
+    cout << setw(6) << "Anh" << setw(3) << "|";
+    cout << setw(6) << "Sinh" << setw(3) << "|";
+    cout << setw(7) << "Tong" << setw(3) << "|" << endl;
 }
-void Form1(){
-                cout << setw(75) << "+";
-            for (int i = 1; i <= 30; ++i)
-                cout << "-";
-            cout << "+" << endl;
-            cout << setw(107) << "|   1. Tên                     |" << endl;
-            cout << setw(75) << "|" << setw(31) << "|" << endl;
-            cout << setw(111) << "|   2. Địa chỉ                 |" << endl;
-            cout << setw(75) << "|" << setw(31) << "|" << endl;
-            cout << setw(107) << "|   3. CCCD                    |\n";
-            cout << setw(75) << "|" << setw(31) << "|" << endl;
-            cout << setw(107) << "|   4. SBD                     |\n";
-            cout << setw(75) << "|" << setw(31) << "|" << endl;
-            cout << setw(108) << "|   5. Năm sinh                |\n";
-            cout << setw(75) << "|" << setw(31) << "|" << endl;
-            cout << setw(109) << "|   6. Giới tính               |" << endl;
-            cout << setw(75) << "+";
-            for (int i = 1; i <= 30; ++i)
-                cout << "-";
-            cout << "+" << endl;
-            cout << endl;
+void Form2()
+{
+    cout << "+";
+    for (int i = 0; i < 192; i++)
+        cout << "-";
+    cout << "+" << endl;
+    cout << "|" << setw(14) << "Ten" << setw(20) << "|";
+    cout << setw(10) << "CCCD" << setw(10) << "|";
+    cout << setw(5) << "GT" << setw(3) << "|";
+    cout << setw(14) << "Ngay Sinh" << setw(5) << "|";
+    cout << setw(12) << "Dia Chi" << setw(8) << "|";
+    cout << setw(8) << "SBD" << setw(8) << "|";
+    cout << setw(7) << "Toan" << setw(3) << "|";
+    cout << setw(5) << "Ly" << setw(3) << "|";
+    cout << setw(6) << "Hoa" << setw(3) << "|";
+    cout << setw(6) << "Van" << setw(3) << "|";
+    cout << setw(6) << "Anh" << setw(3) << "|";
+    cout << setw(6) << "Sinh" << setw(3) << "|";
+    cout << setw(7) << "Tong" << setw(3) << "|";
+    cout << "Ma Nganh" << setw(4) << "|" << endl;
 }
-
 class LinkedList
 {
-public:
     node *head;
-    node *tail;
-    node* getHead(){
+
+public:
+    node *getHead()
+    {
         return head;
     }
     LinkedList()
     {
-        head = tail = NULL;
+        head = NULL;
     }
-     void insert(ThiSinh sv)
+
+    ~LinkedList()
+    {
+    }
+    void insert(ThiSinh sv)
     {
         node *newNode = new node(sv);
-        if (head)
+        if (head == NULL)
         {
-            tail->next=newNode;
-            tail=tail->next;
+            head = newNode;
         }
-        else head=tail=newNode;
+        else
+        {
+            node *temp = head;
+            while (temp->next != NULL)
+            {
+                temp = temp->next;
+            }
+            temp->next = newNode;
+        }
     }
-     bool Delete(string sbd, string name)
+    LinkedList sapxepdiem()
+    {
+        LinkedList ds = *this;
+        int count = 0;
+        node *p = ds.head;
+        while (p != NULL)
+        {
+            count++;
+            p = p->next;
+        }
+        bool swapped;
+        node *ptr1;
+
+        for (int i = 0; i < count - 1; i++)
+        {
+            swapped = false;
+            ptr1 = ds.head;
+
+            for (int j = 0; j < count - i - 1; j++)
+            {
+                if (ptr1->data.getsum() < ptr1->next->data.getsum())
+                {
+                    ThiSinh temp = ptr1->data;
+                    ptr1->data = ptr1->next->data;
+                    ptr1->next->data = temp;
+                    swapped = true;
+                }
+                ptr1 = ptr1->next;
+            }
+
+            if (swapped == false)
+                break;
+        }
+        ds.xuat();
+        return ds;
+    }
+
+    void xuat()
+    {
+        Form();
+        node *temp = head;
+        while (temp != NULL)
+        {
+            cout << "|";
+            for (int i = 0; i < 180; i++)
+                cout << "-";
+            temp->data.display();
+            cout << endl;
+            temp = temp->next;
+        }
+        cout << "|";
+        for (int i = 0; i < 180; i++)
+            cout << "-";
+        cout << "|" << endl;
+    }
+    node *search(string sbd, string name)
+    {
+        node *temp = head;
+        while (temp != NULL)
+        {
+            if (temp->data.getsbd().find(sbd) != string::npos && temp->data.getname().find(name) != string ::npos)
+                return temp;
+            else
+                temp = temp->next;
+        }
+        return NULL;
+    }
+    bool Delete(string sbd, string name)
     {
         node *p = search(sbd, name);
         if (p != NULL)
@@ -87,84 +181,15 @@ public:
         else
             return false;
     }
-     void xuat()
-    {
-        node *temp = head;
-        while (temp != NULL)
-        {
-            temp->data.display();
-            temp = temp->next;
-        }
-        cout << "|";
-        for (int i = 0; i < 153; i++)
-            cout << "-";
-        cout << "|" << endl;
-    }
-    node *search(string sbd, string name)
-    {
-        node *temp = head;
-        while (temp != NULL)
-        {
-            if (temp->data.getsbd().find(sbd) != string::npos && temp->data.getname().find(name) != string ::npos)
-                return temp;
-            else
-                temp = temp->next;
-        }
-        return NULL;
-    }
-    void sapxepdiem(){
-    if (head == NULL)
-    {
-        cout << "Danh sách rỗng.";
-        return;
-    }
 
-    int count = 0;
-    node *temp = head;
-    while (temp != NULL)
+    bool testempty()
     {
-        count++;
-        temp = temp->next;
-    }
-
-    bool swapped;
-    node *ptr1;
-    node *lptr = NULL;
-
-    // Lặp lại quá trình sắp xếp cho đến khi không có cặp phần tử nào được tráo đổi
-    for (int i = 0; i < count - 1; i++)
-    {
-        swapped = false;
-        ptr1 = head;
-
-        // Lặp qua tất cả các phần tử và so sánh điểm của chúng
-        for (int j = 0; j < count - i - 1; j++)
-        {
-            if (ptr1->data.getsum() < ptr1->next->data.getsum())
-            {
-                // Hoán đổi nội dung giữa hai phần tử
-                ThiSinh temp = ptr1->data;
-                ptr1->data = ptr1->next->data;
-                ptr1->next->data = temp;
-                swapped = true;
-            }
-            ptr1 = ptr1->next;
-        }
-
-        // Nếu không có phần tử nào được tráo đổi, thì danh sách đã được sắp xếp
-        if (swapped == false)
-            break;
-}
-
-    }
-     bool testempty()
-    {
-        return (head==nullptr);
+        return (head == NULL);
     }
     bool ktra(string cccd)
     {
         node *p = head;
-        while (p != nullptr)
+        while (p != NULL)
         {
             if (p->data.getcccd().find(cccd) != string::npos)
                 return true;
@@ -172,92 +197,139 @@ public:
         }
         return false;
     }
- 
-   
- void docfile();
+    void docfile();
     void ghifile();
-    void check();
-    
-    float searchnganh(string str);
-    
 };
+
 void LinkedList::docfile()
 {
-    ifstream inputFile;
     ThiSinh ts;
-    inputFile.open("dsthisinh.txt", ios::in);
-    if (inputFile.is_open())
+    ifstream infile("dsthisinh.txt");
+    if (infile.is_open())
     {
         string line;
-        size_t pos;
-        while (getline(inputFile, line))
+        while (getline(infile, line))
         {
-
-            pos = line.find(",");
-            ts.setname(line.substr(0, pos));
-            line.erase(0, pos + 1);
-
-            pos = line.find(",");
-            ts.setcccd(line.substr(0, pos));
-            line.erase(0, pos + 1);
-
-            pos = line.find(",");
-           ts.setgt(line.substr(0, pos));
-            line.erase(0, pos + 1);
-
-            Date d;
-            pos = line.find("/");
-            d.day = stoi(line.substr(0, pos));
-            line.erase(0, pos + 1);
-            pos = line.find("/");
-            d.month = stoi(line.substr(0, pos));
-            line.erase(0, pos + 1);
-            pos = line.find(",");
-            d.year = stoi(line.substr(0, pos));
-            line.erase(0, pos + 1);
-            ts.setdate(d);
-
-            pos = line.find(",");
-            ts.setaddress(line.substr(0, pos));
-            line.erase(0, pos + 1);
-
-            pos = line.find(",");
-            ts.setsbd(line.substr(0, pos));
-            line.erase(0, pos + 1);
-
-            pos = line.find(",");
-            ts.setto(stof(line.substr(0, pos)));
-            line.erase(0, pos + 1);
-
-            pos = line.find(",");
-            ts.setli(stof(line.substr(0, pos)));
-            line.erase(0, pos + 1);
-
-            pos = line.find(",");
-            ts.sethoa(stof(line.substr(0, pos)));
-            line.erase(0, pos + 1);
-
-            vector<string> tam;
-            for (; line!= "\n";)
+            stringstream ss(line);
+            string field;
+            vector<string> fields;
+           
+            while (getline(ss, field, ','))
             {
-                pos = line.find(",");
-                tam.push_back(line.substr(0, pos));
-                // ts.setnv(tam[i], i);
-                line.erase(0, pos + 1);
+                fields.push_back(field);
             }
+            if (fields.size() >= 13)
+            {
+                string name = fields[0];
+                string cccd = fields[1];
+                string gt = fields[2];
+                string dob = fields[3];
+                stringstream ss_dob(dob);
+                string day_str, month_str, year_str;
+                getline(ss_dob, day_str, '/');
+                getline(ss_dob, month_str, '/');
+                getline(ss_dob, year_str, '/');
+                int day = stoi(day_str);
+                int month = stoi(month_str);
+                int year = stoi(year_str);
 
-            insert(ts);
+                string address = fields[4];
+                string sbd = fields[5];
+                float to;
+                try
+                {
+                    to = stof(fields[6]);
+                }
+                catch (const std::invalid_argument &e)
+                {
+                    cout << "Loi chuyen doi chuoi thanh so float: " << e.what() << endl;
+                    to = 0.0f; 
+                }
+
+                float li;
+                try
+                {
+                    li = stof(fields[7]);
+                }
+                catch (const std::invalid_argument &e)
+                {
+                    cout << "Loi chuyen doi chuoi thanh so float: " << e.what() << endl;
+                    li = 0.0f; 
+                }
+                float ho;
+                try
+                {
+                    ho = stof(fields[8]);
+                }
+                catch (const std::invalid_argument &e)
+                {
+                    cout << "Loi chuyen doi chuoi thanh so float: " << e.what() << endl;
+                    ho = 0.0f; 
+                }
+                float van;
+                try
+                {
+                    van = stof(fields[9]);
+                }
+                catch (const std::invalid_argument &e)
+                {
+                    cout << "Loi chuyen doi chuoi thanh so float: " << e.what() << endl;
+                    van = 0.0f;
+                }
+                float anh;
+                try
+                {
+                    anh = stof(fields[10]);
+                }
+                catch (const std::invalid_argument &e)
+                {
+                    cout << "Loi chuyen doi chuoi thanh so float: " << e.what() << endl;
+                    anh = 0.0f; 
+                }
+                float sinh;
+                try
+                {
+                    sinh = stof(fields[11]);
+                }
+                catch (const std::invalid_argument &e)
+                {
+                    cout << "Loi chuyen doi chuoi thanh so float: " << e.what() << endl;
+                    sinh = 0.0f; 
+                }
+                 string k = fields[12];
+                vector<string> wishes;
+
+                if (fields.size() >= 13)
+                {
+                    stringstream ss_major(fields[13]);
+                    string major;
+
+                    while (getline(ss_major, major, ';'))
+                    {
+                        wishes.push_back(major);
+                    }
+                }
+                else
+                {
+                    cout << "Dong khong du truong: " << line << endl;
+                    continue;
+                }
+                           
+
+                ThiSinh candidate(cccd, name, Date(day, month, year), address, gt, sbd, to, li, ho, van, anh, sinh, wishes, k);
+                insert(candidate);
+            }
         }
 
-        inputFile.close();
+        infile.close();
     }
     else
     {
-        cout << "Không thể mở file." << endl;
+        cout << "Khong the mo file." << endl;
     }
 }
-void LinkedList::ghifile()
 
+void LinkedList::ghifile()
 {
     ofstream outputFile;
     outputFile.open("dsthisinh.txt", ios::out);
@@ -266,69 +338,22 @@ void LinkedList::ghifile()
         node *current = head;
         while (current != NULL)
         {
-            outputFile << current->data.getname() << ","
-                       << current->data.getcccd() << ","
-                       << current->data.getgt() << ","
-                       << current->data.getdate().day << "/"
-                       << current->data.getdate().month << "/"
-                       << current->data.getdate().year << ","
-                       << current->data.getaddress() << ","
-                       << current->data.getsbd() << ","
-                       << current->data.getto() << ","
-                       << current->data.getli() << ","
-                       << current->data.gethoa();
-
-            for (int i = 0; i < current->data.getspt(); i++)
+            outputFile << current->data.getname() << "," << current->data.getcccd() << "," << current->data.getgt() << ","
+                       << current->data.getdate().day << "/" << current->data.getdate().month << "/" << current->data.getdate().year
+                       << "," << current->data.getaddress() << "," << current->data.getsbd() << "," << current->data.getto()
+                       << "," << current->data.getli() << "," << current->data.getho() << "," << current->data.getvan() << ","
+                       << current->data.getanh() << "," << current->data.getsinh() << "," << current->data.getkhoi() << ",";
+            for (string wish : current->data.wishes)
             {
-                outputFile << "," << current->data.getnv(i);
+                outputFile << wish << ";";
             }
-
-            cout << endl;
+            outputFile << endl;
             current = current->next;
         }
         outputFile.close();
     }
     else
     {
-        cout << "Không thể mở file." << endl;
+        cout << "Khong the mo file." << endl;
     }
-}
-float LinkedList::searchnganh(string s)
-{
-    s = capitalizeFirstLetter(s);
-    Nganhdaotao *p = pHead;
-    while (p != NULL)
-    {
-        if (p->TenNganh == s)
-            return p->DiemChuan;
-        p = p->next;
-    }
-    cout << "Không có tên ngành này" << endl;
-    return 0;
-}
-
-
-void LinkedList::check()
-{
-    int i = 0;
-    LinkedList dsdau;
-    node *temp = head;
-    while (temp != NULL)
-    {
-        do
-        {
-            float dc = searchnganh(temp->data.getnv(i));
-            if (dc && temp->data.getsum() > dc)
-            {
-                dsdau.insert(temp->data);
-                break;
-            }
-            else if (dc)
-                return;
-            else
-                i++;
-        } while (i < temp->data.getspt());
-        temp = temp->next;
-    }
-    dsdau.sapxepdiem();
 }
